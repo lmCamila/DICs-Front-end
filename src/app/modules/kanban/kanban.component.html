@@ -1,0 +1,54 @@
+<div class="container-kanban">
+    <mat-card>
+        <mat-card-header>
+          <mat-card-title>Definido</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content cdkDropList 
+        #todoList="cdkDropList" 
+        [cdkDropListData]="todo" 
+        [cdkDropListConnectedTo]="[doingList]"
+        class="list-kanban" 
+        (cdkDropListDropped)="drop($event)">
+        <app-dic-kanban class="box-kanban"  *ngFor="let item of todo" cdkDrag [imgTeste]="item"></app-dic-kanban>
+
+        </mat-card-content>
+      </mat-card>
+</div>
+
+
+<div class="container-kanban">
+  <mat-card>
+      <mat-card-header>
+        <mat-card-title>Definindo</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content cdkDropList 
+      #doingList="cdkDropList" 
+      [cdkDropListData]="doing" 
+      [cdkDropListConnectedTo]="[todoList, doneList]"
+      class="list-kanban" 
+      (cdkDropListDropped)="drop($event)">
+      <app-dic-kanban class="box-kanban"  *ngFor="let item of doing" cdkDrag [imgTeste]="item"></app-dic-kanban>
+      
+      </mat-card-content>
+    </mat-card>
+</div>
+
+<div class="container-kanban">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Concluído</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content cdkDropList 
+        #doneList="cdkDropList" 
+        [cdkDropListData]="done" 
+        [cdkDropListConnectedTo]="[doneList]"
+        class="list-kanban" 
+        (cdkDropListDropped)="drop($event)">
+        <app-dic-kanban class="box-kanban"  *ngFor="let item of done" cdkDrag [imgTeste]="item"></app-dic-kanban>
+
+        </mat-card-content>
+      </mat-card>
+  </div>

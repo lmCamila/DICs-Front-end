@@ -1,0 +1,52 @@
+.card{
+    max-width: 25%;
+}
+
+.foto{
+    display:flex;
+    float: right;
+    position:relative; 
+    margin-top:1%;
+    margin-right: 5%;  
+    z-index: 3;  
+}
+.name{
+    background: rgb(111, 188, 250);
+    border-left: 1px solid rgb(111, 188, 250);
+    border-radius: 30%;
+    font-size: 16px;
+    display: inline-block;
+    padding: 0 12%;
+    height: 30%;
+    width: 100%;
+    font-size: 16px;
+    line-height: 25px;
+    border-radius: 25px;
+    margin: -13%;    
+}
+.infos{
+    display:flex;
+    float: right;
+    position:relative; 
+    flex-direction: column;
+    margin-top:3.5%;
+    margin-right: -4%;
+}
+.content{
+    margin-top: 16%;
+}
+.content-challenge{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5%;
+    height: 25%;
+}
+.section-row{
+    margin-right: 10%;
+}
+.img-avatar{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-left: 3%;
+}

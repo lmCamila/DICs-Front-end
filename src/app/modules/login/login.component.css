@@ -3,17 +3,18 @@
     flex-direction: column;
     min-width: 30%;
     max-height: 100%;
-    margin-top: 40vh;
+    margin-top: 0%;
     min-height: 100%;
 }
 .container-form{
     display: flex;
     justify-content: center; 
     align-items: center; 
+    min-height: 98vh;
+    margin: -1px;
     background: linear-gradient(rgba(255, 255, 255, 0.637), rgba(245, 245, 245, 0.849)), url("https://images.unsplash.com/photo-1544171779-783118e110f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80");
     background-repeat: no-repeat;
-    background-size: 100%;
-    
+    background-size: 100% 100%;   
 }
 .button-login{
     background-color: #5FB404;

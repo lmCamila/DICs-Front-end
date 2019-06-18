@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'DICs';
+  teste = 'https://www.petmd.com/sites/default/files/Acute-Dog-Diarrhea-47066074.jpg';
 }
