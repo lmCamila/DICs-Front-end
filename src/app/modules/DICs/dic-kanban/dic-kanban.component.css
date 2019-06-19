@@ -1,16 +1,8 @@
 .img-kanban-avatar {
-    width: 80px;
-    height: 80px;
-    border: 3px solid white;
-    border-radius: 50%;
-    box-shadow: 0px 1px 5px #888888; 
-    margin-left: 3%;
-}
-.img-kanban-avatar-late {
-    width: 80px;
-    height: 80px;
-    border: 3px solid rgb(243, 158, 158);
-    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    border: 3px 6px 3px 3px solid white;
+    border-radius: 5%;
     box-shadow: 0px 1px 5px #888888; 
     margin-left: 3%;
 }
