@@ -1,3 +1,4 @@
+import { DicsModel } from './../../../shared/models/dic-model';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -6,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./dic-kanban.component.css']
 })
 export class DicKanbanComponent implements OnInit {
-  @Input() imgTeste;
+  @Input() dic: DicsModel;
   constructor() { }
 
   ngOnInit() {

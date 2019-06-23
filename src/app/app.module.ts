@@ -1,24 +1,28 @@
+import { ProcessModule } from './modules/process/process.module';
+import { DicsModule } from './modules/DICs/dics.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './modules/login/login.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { DemoMaterialModule } from 'src/material-module';
-import { DICCardComponent } from './modules/DICs/dic-card/dic-card.component';
-import { DicKanbanComponent } from './modules/DICs/dic-kanban/dic-kanban.component';
-import { KanbanComponent } from './modules/kanban/kanban.component';
+import { DepartmentModule } from './modules/department/department.module';
+import { LoginComponent } from './modules/login/login.component';
+import { MenuComponent } from './core/menu/menu.component';
+import { AppRoutingModule } from './app.routing.module';
+import { TokenInterceptor } from './core/interceptors/token.interceptor';
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
+    MenuComponent,
     LoginComponent,
-    DICCardComponent,
-    DicKanbanComponent,
-    KanbanComponent
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -28,8 +32,18 @@ import { KanbanComponent } from './modules/kanban/kanban.component';
     DemoMaterialModule,
     MatNativeDateModule,
     ReactiveFormsModule,
+    DicsModule,
+    DepartmentModule,
+    ProcessModule,
+    AppRoutingModule
   ],
-  providers: [],
+  exports: [
+    DashboardComponent
+  ],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

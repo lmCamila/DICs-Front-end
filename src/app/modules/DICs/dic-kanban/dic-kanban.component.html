@@ -1,6 +1,6 @@
-<!-- <div matBadge="!" matBadgeColor="warn">
-    <img  class="img-kanban-avatar" [src]="imgTeste">
-</div> -->
-<div >
-    <img class="img-kanban-avatar" [src]="imgTeste">
+<div matBadge="!" matBadgeColor="warn" *ngIf="dic.isLate" >
+    <img  class="img-kanban-avatar" [src]="dic.user.avatar">
+</div>
+<div *ngIf="!dic.isLate">
+    <img class="img-kanban-avatar" [src]="dic.user.avatar">
 </div>
