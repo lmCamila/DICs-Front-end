@@ -1,61 +1,72 @@
 import { DicsModel } from './../../shared/models/dic-model';
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { Injectable, EventEmitter } from '@angular/core';
+import { ConfigurationService } from 'src/app/core/services/configuration.service';
+import { DicsApiService } from './dics-api.service';
+import { Configuration } from 'src/app/shared/models/configuration';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DicsService {
-  httpConf = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
+  listDics: DicsModel[];
+  listAllDics: DicsModel[];
+  periodList: number[] = [];
+  conf: Configuration;
 
-  constructor(private http: HttpClient) { }
+  listDicsEmitter = new EventEmitter<DicsModel[]>();
+  configurationEmmiter = new EventEmitter<Configuration>();
+  periodListEmitter = new EventEmitter<number[]>();
 
-  get() {
-    return this.http.get<DicsModel[]>(`${environment.apiUrl}DICs`);
+  constructor(private dicApiService: DicsApiService,
+              private configurationService: ConfigurationService) { }
+
+  getAllForList() {
+    this.dicApiService.get().subscribe(list => {
+      this.listAllDics = list;
+      this.filterByPeriod(0);
+    });
   }
 
-  getById(id: number) {
-    return this.http.get<DicsModel>(`${environment.apiUrl}DICs/${id}`);
+  getConfiguration() {
+    this.configurationService.get().subscribe(
+      data => {
+        this.conf = data;
+        this.calculatePeriods(data.period.months);
+        this.configurationEmmiter.emit(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
-  update(dic: DicsModel) {
-    const dicUpload = this.returnBodyUpdate(dic);
-    return this.http.put(`${environment.apiUrl}DICs`, dicUpload, this.httpConf);
+  filterByPeriod(periodIndex: number) {
+    this.listDics = this.listAllDics.filter(
+      d => (new Date(d.startDate).getUTCMonth() + 1) >= this.periodList[periodIndex]
+        && (new Date(d.startDate).getUTCMonth() + 1) < this.periodList[periodIndex + 1]);
+    this.listDicsEmitter.emit(this.listDics);
   }
 
-  delete(id: number) {
-    return this.http.delete(`${environment.apiUrl}DICs/id`);
+  filterByDefining() {
+    return this.listDics.filter(d => d.status.id === 1);
   }
 
-  create(dic: DicsModel) {
-    const dicUpload = this.returnBodyInsert(dic);
-    return this.http.post(`${environment.apiUrl}DICs`, dicUpload, this.httpConf);
+  filterByDefined() {
+    return this.listDics.filter(d => d.status.id === 2);
   }
 
-  private returnBodyInsert(dic: DicsModel) {
-    const body = {
-      iduser: dic.user.id,
-      idstatus: dic.status.id,
-      idperiod: dic.period.id,
-      description: dic.description
-    };
-    return body;
+  filterByComplete() {
+    return this.listDics.filter(d => d.status.id === 3);
   }
 
-  private returnBodyUpdate(dic: DicsModel) {
-    const body = {
-      id: dic.id,
-      user: dic.user.id,
-      status: dic.status.id,
-      period: dic.period.id,
-      description: dic.description,
-      finishedDate: dic.finishedDate
-    };
-    return body;
+ // calculando e emitindo a period list
+  calculatePeriods(conf: number) {
+    let i = 1;
+    while (i <= 12) {
+      this.periodList.push(i);
+      i = i + conf;
+    }
+    this.periodListEmitter.emit(this.periodList);
   }
+
 }

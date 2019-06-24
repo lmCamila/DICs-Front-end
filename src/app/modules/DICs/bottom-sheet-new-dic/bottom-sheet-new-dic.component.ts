@@ -77,30 +77,29 @@ export class BottomSheetNewDicComponent implements OnInit {
     });
     if (this.formDic.valid) {
       if (this.data.mode === 'new') {
-        this.dicService.create(valueSubmit).subscribe(
-          data => {
-            this.modalRef = this.dialog.open(ModalComponent, {
-              data: {
-                message: 'Desafio individual do colaborador inserido com sucesso!',
-                cancel: false
-              }
-            });
-            this.formDic.reset();
-            this.bottomSheetRef.dismiss();
-          },
-          error => {
-            this.modalRef = this.dialog.open(ModalComponent, {
-              data: {
-                message: 'Erro! Plano não pode ser inserido.',
-                cancel: false
-              }
-            });
-          }
-        );
-      }
-    } else {
-      console.log('teste');
-    }
+    //     this.dicService.create(valueSubmit).subscribe(
+    //       data => {
+    //         this.modalRef = this.dialog.open(ModalComponent, {
+    //           data: {
+    //             message: 'Desafio individual do colaborador inserido com sucesso!',
+    //             cancel: false
+    //           }
+    //         });
+    //         this.formDic.reset();
+    //         this.bottomSheetRef.dismiss();
+    //       },
+    //       error => {
+    //         this.modalRef = this.dialog.open(ModalComponent, {
+    //           data: {
+    //             message: 'Erro! Plano não pode ser inserido.',
+    //             cancel: false
+    //           }
+    //         });
+    //       }
+    //     );
+    //   }
+       }
+     }
   }
 
 }

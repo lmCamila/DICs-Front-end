@@ -1,7 +1,5 @@
 import { AuthService } from './../../../core/authentication/auth.service';
-import { Period } from './../../../shared/models/period';
 import { Configuration } from './../../../shared/models/configuration';
-import { UsersComponent } from './../../users/users/users.component';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { moveItemInArray, transferArrayItem, CdkDragDrop } from '@angular/cdk/drag-drop';
@@ -17,40 +15,45 @@ import { DicsService } from './../dics.service';
   styleUrls: ['./kanban.component.css']
 })
 export class KanbanComponent implements OnInit, OnDestroy {
-  defining: any;
-  defined: any;
-  completed: any;
+  defining: DicsModel[];
+  defined: DicsModel[];
+  completed: DicsModel[];
   listDics: DicsModel[];
   dicsPeriod: DicsModel[];
-  periodList: number[] = [];
+  periodList: number[];
 
   dicsSubscription: Subscription;
   configSubscription: Subscription;
-  loading = true;
-  showFilter = false;
+  periodListSubscription: Subscription;
+
   conf: Configuration;
 
+  loading = true;
+  showFilter = false;
   constructor(private bottomSheet: MatBottomSheet,
               private dicService: DicsService,
-              private configurationService: ConfigurationService,
-              private authService: AuthService) { }
-
-  ngOnInit() {
+              private authService: AuthService) {
     this.authService.showMenuEmitter.emit(true);
-    this.configSubscription = this.configurationService.get().subscribe(
+    this.configSubscription = this.dicService.configurationEmmiter.subscribe(
+      data => this.conf = data
+    );
+    this.periodListSubscription = this.dicService.periodListEmitter.subscribe(
+      data => this.periodList = data
+    );
+    this.dicsSubscription = this.dicService.listDicsEmitter.subscribe(
       data => {
-        this.conf = data;
-        this.calculatePeriods(data.period.months);
-      },
-      error => {
-        console.log(error);
+        this.listDics = data;
+        this.defining = this.dicService.filterByDefining();
+        this.defined = this.dicService.filterByDefined();
+        this.completed = this.dicService.filterByComplete();
+        this.loading = false;
       }
     );
-    this.dicsSubscription = this.dicService.get().subscribe(list => {
-      this.listDics = list;
-      this.filterByPeriod(0);
-      this.loading = false;
-    });
+  }
+
+  ngOnInit() {
+    this.dicService.getConfiguration();
+    this.dicService.getAllForList();
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -73,27 +76,12 @@ export class KanbanComponent implements OnInit, OnDestroy {
     this.dicsSubscription.unsubscribe();
   }
 
-  calculatePeriods(conf: number) {
-    let i = 1;
-    while (i <= 12) {
-      this.periodList.push(i);
-      i = i + conf;
-    }
-  }
-
-  filterByPeriod(periodIndex: number) {
-    this.dicsPeriod = this.listDics.filter(
-      d => (new Date(d.startDate).getUTCMonth() + 1) >= this.periodList[periodIndex]
-        && (new Date(d.startDate).getUTCMonth() + 1) < this.periodList[periodIndex + 1]);
-    this.defining = this.dicsPeriod.filter(d => d.status.id === 1);
-    this.defined = this.dicsPeriod.filter(d => d.status.id === 2);
-    this.completed = this.dicsPeriod.filter(d => d.status.id === 3);
-    if (this.showFilter) {
-      this.showFilterOptions();
-    }
-  }
   showFilterOptions() {
     this.showFilter = !this.showFilter;
+  }
+
+  filterPeriod(period: number) {
+    this.dicService.filterByPeriod(period);
   }
 
 }

@@ -15,7 +15,7 @@
         </button>
         <div *ngIf="showFilter" id="filter-list">
           <mat-chip-list>
-            <mat-chip *ngFor="let period of periodList" mat-menu-item (click)="filterByPeriod(periodList.indexOf(period))">{{periodList.indexOf(period)+1}}° {{conf.period.name}}</mat-chip>
+            <mat-chip *ngFor="let period of periodList" mat-menu-item (click)="filterPeriod(periodList.indexOf(period))">{{periodList.indexOf(period)+1}}° {{conf.period.name}}</mat-chip>
           </mat-chip-list>
         </div>
     </div>
