@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+  <p> {{ data.message }} </p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClickConfirm()" color="primary">Ok</button>
+  <button mat-button *ngIf="data.cancel" (click)="onClickCancel()">Cancelar</button>
+</div>

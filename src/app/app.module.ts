@@ -16,13 +16,15 @@ import { MenuComponent } from './core/menu/menu.component';
 import { AppRoutingModule } from './app.routing.module';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
+import { ModalComponent } from './core/modal/modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

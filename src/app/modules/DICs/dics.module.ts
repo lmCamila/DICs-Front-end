@@ -7,6 +7,7 @@ import { KanbanComponent } from './kanban/kanban.component';
 import { BottomSheetNewDicComponent } from './bottom-sheet-new-dic/bottom-sheet-new-dic.component';
 import { DICsComponent } from './dics/dics.component';
 import { DicsRoutingModule } from './dics.routing.module';
+import { GeneralComponent } from './general/general.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { DicsRoutingModule } from './dics.routing.module';
     DicKanbanComponent,
     BottomSheetNewDicComponent,
     KanbanComponent,
-    DICsComponent
+    DICsComponent,
+    GeneralComponent
   ],
   imports: [
     CommonModule,
