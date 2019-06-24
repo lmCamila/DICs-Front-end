@@ -1,6 +1,6 @@
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,8 @@ export class AuthService {
       'Content-Type': 'application/json'
     })
   };
+  showMenuEmitter = new EventEmitter<boolean>();
+
   constructor(private http: HttpClient) { }
   login(body) {
     // const body = {

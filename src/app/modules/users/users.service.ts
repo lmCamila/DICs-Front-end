@@ -16,29 +16,29 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   get() {
-    return this.http.get<User>(`${environment.apiUrl}/Users`);
+    return this.http.get<User[]>(`${environment.apiUrl}Users`);
   }
 
   getDics(id: number) {
-    return this.http.get<UserDics>(`${environment.apiUrl}/Users/dics/${id}`);
+    return this.http.get<UserDics>(`${environment.apiUrl}Users/dics/${id}`);
   }
 
   getById(id: number) {
-    return this.http.get<User>(`${environment.apiUrl}/Users/${id}`);
+    return this.http.get<User>(`${environment.apiUrl}Users/${id}`);
   }
 
   update(user: User, pass) {
     const userUpload = this.returnBodyUpdate(user, pass);
-    return this.http.put(`${environment.apiUrl}/Users`, userUpload, this.httpConf);
+    return this.http.put(`${environment.apiUrl}Users`, userUpload, this.httpConf);
   }
 
   delete(id: number) {
-    return this.http.delete(`${environment.apiUrl}/Users/${id}`);
+    return this.http.delete(`${environment.apiUrl}Users/${id}`);
   }
 
   create(user: User, pass: string) {
     const userUpload = this.returnBodyToInsert(user, pass);
-    return this.http.post(`${environment.apiUrl}/Users`, userUpload, this.httpConf);
+    return this.http.post(`${environment.apiUrl}Users`, userUpload, this.httpConf);
   }
 
   private returnBodyUpdate(user: User, pass) {

@@ -1,3 +1,49 @@
-<p>
-  bottom-sheet-new-dic works!
-</p>
+<div>
+
+  <form [formGroup]="formDic" class="form-dic">
+    <div style="display:inline;">
+      <button mat-icon-button type="button" matTooltip="Cancelar" (click)="close()"
+        style="position:relative; float:left;">
+        <mat-icon>close</mat-icon>
+      </button>
+      <h2 style="position:relative; float:left;">Desafio interno do colaborador</h2>
+      <button type="submit" mat-icon-button matTooltip="Confirmar" style="position:relative; float:right;">
+        <mat-icon>done</mat-icon>
+      </button>
+    </div>
+    <mat-tab-group>
+      <mat-tab label="Geral">
+        <!-- input usuario autocomplete -->
+        <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%;">
+          <input matInput #user placeholder="Colaborador" aria-label="Colaborador" [matAutocomplete]="autoUser"
+            formControlName="idUser" (keyup)="filterUsers($event)">
+          <button mat-button *ngIf="user.value" matSuffix mat-icon-button aria-label="Clear" (click)="plan.value=''">
+            <mat-icon>close</mat-icon>
+          </button>
+          <mat-autocomplete matAutocomplete #autoUser>
+            <mat-option *ngFor="let user of usersList" [value]="user.name">
+              <img class="option-img" aria-hidden [src]="user.avatar" height="40" width="35">
+              {{user.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <!-- input de descrição -->
+        <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%;">
+          <textarea matInput rows="4" placeholder="Descrição" formControlName="description"></textarea>
+        </mat-form-field>
+
+        <!-- select status -->
+        <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%;">
+            <mat-label>Status</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let status of statusList" [value]="status.id">
+                {{status.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+      </mat-tab>
+    </mat-tab-group>
+  </form>
+</div>

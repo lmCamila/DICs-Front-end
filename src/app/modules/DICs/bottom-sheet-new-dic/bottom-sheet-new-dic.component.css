@@ -1,0 +1,12 @@
+.option-img{
+    vertical-align: middle;
+    margin-right: 8px;
+}
+.form-dic{
+    min-width:200px;
+    max-width: 500px;
+    min-height:400px;
+    padding-bottom: 30%;
+    display: flex;
+    flex-direction: column; 
+}

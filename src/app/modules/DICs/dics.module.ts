@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DicKanbanComponent } from './dic-kanban/dic-kanban.component';
@@ -8,6 +9,7 @@ import { BottomSheetNewDicComponent } from './bottom-sheet-new-dic/bottom-sheet-
 import { DICsComponent } from './dics/dics.component';
 import { DicsRoutingModule } from './dics.routing.module';
 import { GeneralComponent } from './general/general.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { GeneralComponent } from './general/general.component';
   imports: [
     CommonModule,
     DemoMaterialModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
     DicsRoutingModule
   ],
   entryComponents:

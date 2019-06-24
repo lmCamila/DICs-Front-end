@@ -1,5 +1,3 @@
-
-
 import { DicsModel } from './../../shared/models/dic-model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

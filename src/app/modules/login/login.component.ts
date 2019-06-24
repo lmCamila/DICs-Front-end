@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
         data => {
           localStorage.setItem('currentUser', JSON.stringify(data));
           const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+          this.authService.showMenuEmitter.emit(true);
           this.router.navigate(['/kanban']);
         },
         error => {

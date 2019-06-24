@@ -1,3 +1,4 @@
+import { AuthService } from './../../../core/authentication/auth.service';
 import { Period } from './../../../shared/models/period';
 import { Configuration } from './../../../shared/models/configuration';
 import { UsersComponent } from './../../users/users/users.component';
@@ -31,9 +32,11 @@ export class KanbanComponent implements OnInit, OnDestroy {
 
   constructor(private bottomSheet: MatBottomSheet,
               private dicService: DicsService,
-              private configurationService: ConfigurationService) { }
+              private configurationService: ConfigurationService,
+              private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.showMenuEmitter.emit(true);
     this.configSubscription = this.configurationService.get().subscribe(
       data => {
         this.conf = data;
