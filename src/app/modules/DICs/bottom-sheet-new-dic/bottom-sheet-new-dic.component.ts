@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { Configuration } from 'src/app/shared/models/configuration';
 import { Status } from 'src/app/shared/models/status';
 import { User } from 'src/app/shared/models/user';
+import { DicsApiService } from '../dics-api.service';
 
 @Component({
   selector: 'app-bottom-sheet-new-dic',
@@ -33,21 +34,24 @@ export class BottomSheetNewDicComponent implements OnInit {
               private userService: UsersService,
               private statusService: StatusService,
               private configurationService: ConfigurationService,
+              private dicApiService: DicsApiService,
               private dicService: DicsService,
               public dialog: MatDialog,
               private bottomSheetRef: MatBottomSheetRef<BottomSheetNewDicComponent>,
               @Inject(MAT_BOTTOM_SHEET_DATA) public data: any) {
     this.formDic = this.formBuilder.group({
-      idUser: [null, [ Validators.required]],
-      idStatus: [null, [ Validators.required]],
-      description: [null, [ Validators.required]]
+      idUser: [null, [Validators.required]],
+      idStatus: [null, [Validators.required]],
+      description: [null, [Validators.required]]
     });
   }
 
   ngOnInit() {
     this.usersSubscription = this.userService.get().subscribe(
-      dados => { this.usersList = dados;
-                 this.allUsersList = dados; },
+      dados => {
+        this.usersList = dados;
+        this.allUsersList = dados;
+      },
       error => { console.log(error); }
     );
     this.statusSubscription = this.statusService.get().subscribe(
@@ -64,42 +68,44 @@ export class BottomSheetNewDicComponent implements OnInit {
     this.bottomSheetRef.dismiss();
   }
 
-  filterUsers( event: KeyboardEvent) {
+  filterUsers(event: KeyboardEvent) {
     const patern = `.*${(event.target as HTMLInputElement).value}`;
-    this.usersList = this.allUsersList.filter( user => new RegExp(patern, 'gi').test(user.name));
+    this.usersList = this.allUsersList.filter(user => new RegExp(patern, 'gi').test(user.name));
   }
 
   onSubmit() {
     let valueSubmit = Object.assign({}, this.formDic.value);
-    valueSubmit = Object.assign( valueSubmit, {
+    valueSubmit = Object.assign(valueSubmit, {
       idUser: this.allUsersList.filter(u => u.name = this.formDic.value.idUser)[0].id,
       finishedDate: this.formDic.value.idStatus === 3 ? new Date() : null
     });
     if (this.formDic.valid) {
       if (this.data.mode === 'new') {
-    //     this.dicService.create(valueSubmit).subscribe(
-    //       data => {
-    //         this.modalRef = this.dialog.open(ModalComponent, {
-    //           data: {
-    //             message: 'Desafio individual do colaborador inserido com sucesso!',
-    //             cancel: false
-    //           }
-    //         });
-    //         this.formDic.reset();
-    //         this.bottomSheetRef.dismiss();
-    //       },
-    //       error => {
-    //         this.modalRef = this.dialog.open(ModalComponent, {
-    //           data: {
-    //             message: 'Erro! Plano não pode ser inserido.',
-    //             cancel: false
-    //           }
-    //         });
-    //       }
-    //     );
-    //   }
-       }
-     }
+        this.dicApiService.create(valueSubmit).subscribe(
+          data => {
+            this.modalRef = this.dialog.open(ModalComponent, {
+              data: {
+                message: 'Desafio individual do colaborador inserido com sucesso!',
+                cancel: false
+              }
+            });
+            this.dicService.getAllForList();
+            this.formDic.reset();
+            this.bottomSheetRef.dismiss();
+          },
+          error => {
+            this.modalRef = this.dialog.open(ModalComponent, {
+              data: {
+                message: 'Erro! Plano não pode ser inserido.',
+                cancel: false
+              }
+            });
+          }
+        );
+      }
+    } else {
+      console.log('teste');
+    }
   }
 
 }

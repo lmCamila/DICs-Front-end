@@ -1,12 +1,11 @@
 import { AuthService } from './../../../core/authentication/auth.service';
 import { Configuration } from './../../../shared/models/configuration';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { moveItemInArray, transferArrayItem, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Subscription } from 'rxjs';
 
 import { BottomSheetNewDicComponent } from '../bottom-sheet-new-dic/bottom-sheet-new-dic.component';
-import { ConfigurationService } from './../../../core/services/configuration.service';
 import { DicsModel } from 'src/app/shared/models/dic-model';
 import { DicsService } from './../dics.service';
 @Component({
@@ -74,6 +73,7 @@ export class KanbanComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.configSubscription.unsubscribe();
     this.dicsSubscription.unsubscribe();
+    this.periodListSubscription.unsubscribe();
   }
 
   showFilterOptions() {

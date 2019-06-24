@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { DicsModel } from 'src/app/shared/models/dic-model';
 
 @Component({
   selector: 'app-dic-card',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dic-card.component.css']
 })
 export class DICCardComponent implements OnInit {
-
+  @Input() dic: DicsModel;
   constructor() { }
 
   ngOnInit() {

@@ -59,12 +59,14 @@ export class DicsService {
     return this.listDics.filter(d => d.status.id === 3);
   }
 
- // calculando e emitindo a period list
+  // calculando e emitindo a period list
   calculatePeriods(conf: number) {
-    let i = 1;
-    while (i <= 12) {
-      this.periodList.push(i);
-      i = i + conf;
+    if (this.periodList.length === 0) {
+      let i = 1;
+      while (i <= 12) {
+        this.periodList.push(i);
+        i = i + conf;
+      }
     }
     this.periodListEmitter.emit(this.periodList);
   }

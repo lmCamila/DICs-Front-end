@@ -1,0 +1,16 @@
+.example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+ .toolbar-menu{
+    height: 7% !important;
+    z-index: 2;
+    position: fixed;
+    background-color: rgb(27, 117, 187);
+ }  
+ .selected-item {
+   background: rgba(123, 183, 211, 0.322) !important;
+ }

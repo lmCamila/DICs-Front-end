@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DICsComponent } from './dics/dics.component';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
 const appRoutes: Routes = [
-    {path: 'DICs', component: DICsComponent, canActivate: [AuthGuard]},
+    {path: 'dics', component: DICsComponent, canActivate: [AuthGuard]},
     {path: 'kanban', component: KanbanComponent, canActivate: [AuthGuard]}
 ];
 

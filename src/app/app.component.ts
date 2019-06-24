@@ -7,27 +7,12 @@ import { AuthService } from './core/authentication/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
-  mobileQuery: MediaQueryList;
-  showMenu = false;
+export class AppComponent implements OnInit {
 
-  private mobileQueryListener: () => void;
-
-  constructor(changeDetectorRef: ChangeDetectorRef,
-              media: MediaMatcher,
-              private authService: AuthService) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this.mobileQueryListener);
-  }
+  constructor() {}
 
   ngOnInit() {
-    this.authService.showMenuEmitter.subscribe(
-      show => this.showMenu = show
-    );
   }
-  ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this.mobileQueryListener);
-  }
+  
 
 }
