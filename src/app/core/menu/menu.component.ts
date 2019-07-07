@@ -41,4 +41,8 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.router.navigate(['/login']);
   }
 
+  setAvatar() {
+    this.currentUser.user.avatar = '/assets/default-user-icon.jpg';
+  }
+
 }

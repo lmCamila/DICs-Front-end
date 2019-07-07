@@ -25,4 +25,8 @@ export class DICCardComponent implements OnInit {
     });
   }
 
+  setAvatar() {
+    this.dic.user.avatar = '/assets/default-user-icon.jpg';
+  }
+
 }

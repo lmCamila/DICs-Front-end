@@ -13,4 +13,7 @@ export class DicKanbanComponent implements OnInit {
   ngOnInit() {
   }
 
+  setAvatar() {
+    this.dic.user.avatar = '/assets/default-user-icon.jpg';
+  }
 }

@@ -1,6 +1,6 @@
-<div matBadge="!" matBadgeColor="warn" *ngIf="dic.isLate" >
-    <img  class="img-kanban-avatar" [src]="dic.user.avatar">
+<div matBadge="!" matBadgeColor="warn" *ngIf="dic.isLate" [matTooltip]="dic.user.name">
+    <img  class="img-kanban-avatar" [src]="dic.user.avatar" (error)="setAvatar()">
 </div>
-<div *ngIf="!dic.isLate">
-    <img class="img-kanban-avatar" [src]="dic.user.avatar">
+<div *ngIf="!dic.isLate" [matTooltip]="dic.user.name">
+    <img class="img-kanban-avatar" [src]="dic.user.avatar" (error)="setAvatar()">
 </div>

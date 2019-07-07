@@ -9,8 +9,8 @@
     <div class="row-menu">
 
       <button mat-button [matMenuTriggerFor]="usersConfs" class="button-menu">
-        {{this.currentUser.user.name}}
-        <img class="avatar-menu" [src]="this.currentUser.user.avatar">
+        {{currentUser.user.name}}
+        <img class="avatar-menu" [src]="currentUser.user.avatar" (error)="setAvatar()">
         <mat-icon>expand_more</mat-icon>
       </button>
       <mat-menu #usersConfs="matMenu" xPosition="before">

@@ -1,6 +1,6 @@
 <mat-card class="card">
   <div class="foto">
-    <img  class="img-avatar" [src]="dic.user.avatar">
+    <img  class="img-avatar" [src]="dic.user.avatar" (error)="setAvatar()">
     <button mat-icon-button [matMenuTriggerFor]="menu" >
       <mat-icon>more_vert</mat-icon>
     </button>
