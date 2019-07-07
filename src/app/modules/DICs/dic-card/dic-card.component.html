@@ -1,51 +1,52 @@
 <mat-card class="card">
-  <div class="foto">
-    <img  class="img-avatar" [src]="dic.user.avatar" (error)="setAvatar()">
-    <button mat-icon-button [matMenuTriggerFor]="menu" >
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item [matMenuTriggerFor]="status">
-        Mudar status para
-      </button>
-      <button mat-menu-item (click)="openEditDic(dic)" >
-        Editar
-      </button>
-    </mat-menu>
-    <mat-menu #status="matMenu">
-      <button mat-menu-item >
-        Definindo
-      </button>
-      <button mat-menu-item >
-        Definido
-      </button>
-      <button mat-menu-item >
-        Concluído
-      </button>
-    </mat-menu>
-  </div>
-  <mat-card-header class="infos">
+  <mat-card-header>
+    <img mat-card-avatar class="img-avatar" [src]="dic.user.avatar" (error)="setAvatar()">
     <mat-card-title class="name">{{dic.user.name}}</mat-card-title>
-    <mat-card-subtitle style="margin-top: 1px">{{dic.user.department.name}}/{{dic.user.process.name}}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="!dic.user.process"style="margin-top: 1px">{{dic.user.department.name}}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="dic.user.process"  style="margin-top: 1px">{{dic.user.department.name}}/{{dic.user.process.name}}
+    </mat-card-subtitle>
+
+    <mat-card-actions>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="status">
+          Mudar status para
+        </button>
+        <button mat-menu-item (click)="openEditDic(dic)">
+          Editar
+        </button>
+      </mat-menu>
+      <mat-menu #status="matMenu">
+        <button mat-menu-item>
+          Definindo
+        </button>
+        <button mat-menu-item>
+          Definido
+        </button>
+        <button mat-menu-item>
+          Concluído
+        </button>
+      </mat-menu>
+    </mat-card-actions>
   </mat-card-header>
   <mat-card-content class="content">
     <h4>DESAFIO:</h4>
     <div class="content-challenge">
       <p>{{dic.description}}</p>
     </div>
-  </mat-card-content>
-  <mat-card-actions>
     <div style="display: flex; flex-direction: row; margin-left:3%">
-        <button mat-icon-button style="color: black"  *ngIf="dic.status.id !== 3"  aria-label="não concluído">
-            <mat-icon>check_box_outline_blank</mat-icon> 
-        </button>
-        <button mat-icon-button  *ngIf="dic.status.id === 3" style="color: #3ADF00"  aria-label="concluído">
-            <mat-icon>check_box</mat-icon>
-        </button>
+      <button mat-icon-button style="color: black" *ngIf="dic.status.id !== 3" aria-label="não concluído">
+        <mat-icon>check_box_outline_blank</mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="dic.status.id === 3" style="color: #3ADF00" aria-label="concluído">
+        <mat-icon>check_box</mat-icon>
+      </button>
       <div style="display: flex; flex-direction: row">
-        <p> Concluído!  | Data de conclusão:</p>
-        <p *ngIf="dic.status.id === 3" >  {{dic?.finishedDate | date:'shortDate'}}</p>
+        <p> Concluído! | Data de conclusão:</p>
+        <p *ngIf="dic.status.id === 3"> {{dic?.finishedDate | date:'shortDate'}}</p>
       </div>
     </div>
-  </mat-card-actions>
+  </mat-card-content>
 </mat-card>
