@@ -2,10 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DicsModel } from 'src/app/shared/models/dic-model';
 import { Subscription } from 'rxjs';
 import { Configuration } from 'src/app/shared/models/configuration';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { DicsService } from '../dics.service';
+import { DicsService } from '../../../core/services/dics.service';
 import { AuthService } from 'src/app/core/authentication/auth.service';
-import { BottomSheetNewDicComponent } from '../bottom-sheet-new-dic/bottom-sheet-new-dic.component';
+import { MatDialog } from '@angular/material/dialog';
+import { NewDicComponent } from 'src/app/core/new-dic/new-dic.component';
 
 @Component({
   selector: 'app-dics',
@@ -29,7 +29,7 @@ export class DICsComponent implements OnInit, OnDestroy {
   loading = true;
   showFilter = false;
 
-  constructor(private bottomSheet: MatBottomSheet,
+  constructor(private dialog: MatDialog,
               private dicService: DicsService,
               private authService: AuthService) {
     this.authService.showMenuEmitter.emit(true);
@@ -55,13 +55,13 @@ export class DICsComponent implements OnInit, OnDestroy {
     this.dicService.getAllForList();
   }
 
-  openBottomSheet(): void {
-    this.bottomSheet.open(BottomSheetNewDicComponent);
-  }
-
-  ngOnDestroy() {
-    this.configSubscription.unsubscribe();
-    this.dicsSubscription.unsubscribe();
+  openNewDic(): void {
+    this.dialog.open(NewDicComponent, {
+      panelClass: 'custom-dialog-container',
+      data: {
+        mode: 'new'
+      }
+    });
   }
 
   showFilterOptions() {
@@ -70,6 +70,12 @@ export class DICsComponent implements OnInit, OnDestroy {
 
   filterPeriod(period: number) {
     this.dicService.filterByPeriod(period);
+  }
+
+  ngOnDestroy() {
+    this.configSubscription.unsubscribe();
+    this.dicsSubscription.unsubscribe();
+    this.periodListSubscription.unsubscribe();
   }
 
 }

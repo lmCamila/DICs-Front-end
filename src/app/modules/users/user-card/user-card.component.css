@@ -1,0 +1,21 @@
+.avatar-user{
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50%;
+    position: relative;
+    float: left;
+}
+
+.container-user{
+    display: flex;
+    width: 60vw;
+    padding-top: 1%;
+    margin: 1%;
+}
+.menu-user{
+    display: flex;
+    position: absolute;
+    float: right; 
+    top: 2%;
+    right: 2%;
+}

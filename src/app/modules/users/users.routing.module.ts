@@ -3,12 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { UsersComponent } from './users/users.component';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
 const appRoutes: Routes = [
-    {path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
-    {path: '**', redirectTo: ''}
+    {path: '', component: UsersComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(appRoutes)],
+    imports: [RouterModule.forChild(appRoutes)],
     exports: [RouterModule]
 })
 export class UsersRoutingModule {}

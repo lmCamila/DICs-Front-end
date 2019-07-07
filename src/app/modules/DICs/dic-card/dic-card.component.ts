@@ -1,5 +1,7 @@
+import { DicsModel } from './../../../shared/models/dic-model';
+import { NewDicComponent } from './../../../core/new-dic/new-dic.component';
+import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, Input } from '@angular/core';
-import { DicsModel } from 'src/app/shared/models/dic-model';
 
 @Component({
   selector: 'app-dic-card',
@@ -8,9 +10,19 @@ import { DicsModel } from 'src/app/shared/models/dic-model';
 })
 export class DICCardComponent implements OnInit {
   @Input() dic: DicsModel;
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
+  }
+
+  openEditDic(item) {
+    this.dialog.open(NewDicComponent, {
+      panelClass: 'custom-dialog-container',
+      data: {
+        mode: 'edit',
+        dic: item
+      }
+    });
   }
 
 }

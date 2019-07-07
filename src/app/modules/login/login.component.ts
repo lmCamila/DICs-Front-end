@@ -1,15 +1,17 @@
 import { AuthService } from '../../core/authentication/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   formLogin: FormGroup;
+  authSubscription: Subscription;
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
               private router: Router) { }
@@ -23,10 +25,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.formLogin.valid) {
-      this.authService.login(this.formLogin.value).subscribe(
+      this.authSubscription = this.authService.login(this.formLogin.value).subscribe(
         data => {
           localStorage.setItem('currentUser', JSON.stringify(data));
-          const currentUser = JSON.parse(localStorage.getItem('currentUser'));
           this.authService.showMenuEmitter.emit(true);
           this.router.navigate(['/kanban']);
         },
@@ -35,5 +36,8 @@ export class LoginComponent implements OnInit {
         }
       );
     }
+  }
+  ngOnDestroy() {
+    this.authSubscription.unsubscribe();
   }
 }

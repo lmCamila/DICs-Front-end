@@ -1,42 +1,34 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DicKanbanComponent } from './dic-kanban/dic-kanban.component';
-import { DICCardComponent } from './dic-card/dic-card.component';
 import { DemoMaterialModule } from 'src/material-module';
-import { KanbanComponent } from './kanban/kanban.component';
-import { BottomSheetNewDicComponent } from './bottom-sheet-new-dic/bottom-sheet-new-dic.component';
+
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { DICCardComponent } from './dic-card/dic-card.component';
 import { DICsComponent } from './dics/dics.component';
 import { DicsRoutingModule } from './dics.routing.module';
-import { GeneralComponent } from './general/general.component';
-import { ReactiveFormsModule } from '@angular/forms';
+
+
 
 @NgModule({
   declarations: [
     DICCardComponent,
-    DicKanbanComponent,
-    BottomSheetNewDicComponent,
-    KanbanComponent,
-    DICsComponent,
-    GeneralComponent
+    DICsComponent
   ],
   imports: [
     CommonModule,
     DemoMaterialModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     DicsRoutingModule
   ],
   entryComponents:
   [
-    BottomSheetNewDicComponent
   ],
   exports:
   [
-    DicKanbanComponent,
-    DICCardComponent,
-    BottomSheetNewDicComponent,
-    KanbanComponent
+    DICCardComponent
+  ],
+  providers: [
   ]
 })
 export class DicsModule { }

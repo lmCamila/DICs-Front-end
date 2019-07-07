@@ -1,0 +1,14 @@
+.option-img{
+    vertical-align: middle;
+    margin-right: 8px;
+}
+.form-dic{
+    display: flex;
+    flex-direction: column; 
+}
+.header-form-dic{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-content:center;
+}

@@ -1,0 +1,45 @@
+.header-structure {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.container-structure {
+    width: 70vw;
+    margin: 5% 15% 2% 15%;
+}
+
+.panel {
+    max-width: 60vw !important;
+    max-height: 100%;
+    padding: 0 !important;
+    margin: 3%;
+}
+
+ .header-card{
+    background: rgb(0, 183, 255);
+    color:white;
+    padding: 2%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.button-add {
+    background-color: rgb(33, 189, 33) !important;
+    position: fixed;
+    right: 3%;
+    bottom: 3%;
+}
+
+.sub-butons-add{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    right: 3.5%;
+    bottom: 12%;
+}
+
+

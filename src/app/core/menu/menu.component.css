@@ -9,8 +9,26 @@
     height: 7% !important;
     z-index: 2;
     position: fixed;
+    display: flex;
+    justify-content: space-between;
     background-color: rgb(27, 117, 187);
  }  
  .selected-item {
    background: rgba(123, 183, 211, 0.322) !important;
  }
+ .avatar-menu{
+  width:35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-left: 3%;
+}
+.row-menu{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.button-menu{
+  display: flex;
+  flex-direction: row !important;
+  height: 6vh;
+}

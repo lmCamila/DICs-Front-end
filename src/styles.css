@@ -16,3 +16,19 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.form {
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+}
+
+.header-form {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2%;
+    border-bottom: 1px solid rgb(2, 55, 139);
+}
+
+.custom-dialog-container .mat-dialog-container {
+    padding: 0 !important;
+}

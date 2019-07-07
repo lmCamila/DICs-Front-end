@@ -1,0 +1,91 @@
+<div style="width:100%; height: 100%;">
+  <div class='header-kanban'>
+    <div style="display: flex; flex-direction:row; justify-content: space-between">
+      <mat-card-title>Desafio Interno do Colaborador</mat-card-title>
+      <!-- <mat-form-field>
+          <mat-label>Período:</mat-label>
+          <mat-select #s (valueChange)="filterByPeriod(s.value)">
+            <mat-option *ngFor="let period of periodList" [value]="periodList.indexOf(period)">
+              {{periodList.indexOf(period)+1}}° {{conf.period.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+      <button mat-icon-button matTooltip="Filtrar por:" (click)="showFilterOptions()" class="button-filter">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+      <div *ngIf="showFilter" class="filter-list">
+        <mat-chip-list>
+          <mat-chip *ngFor="let period of periodList" mat-menu-item (click)="filterPeriod(periodList.indexOf(period))">
+            {{periodList.indexOf(period)+1}}° {{conf.period.name}}</mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+  <div *ngIf="loading" style="display: flex; justify-content:  center; align-content: center; margin-top: 15%">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div cdkDropListGroup style="width: 100vw;display: flex; flex-direction: row">
+    <div class="container-kanban" *ngIf="!loading">
+      <mat-toolbar class="header-card" style="background: rgb(224, 46, 61);">
+        <span>Definindo</span>
+      </mat-toolbar>
+      <mat-card  class="card-kanban">
+        <mat-card-content>
+          <div cdkDropList 
+            #definingList="cdkDropList" 
+            [cdkDropListData]="defining"
+            [cdkDropListConnectedTo]="[definedList]"
+            [cdkDropListEnterPredicate]="noReturnPredicate" 
+            class="list-kanban" 
+            (cdkDropListDropped)="drop($event)">
+            <app-dic-kanban class="box-kanban" *ngFor="let item of defining" cdkDrag [dic]="item" cdkDragData="defining" (cdkDragDropped)="setDicDropped(item)"></app-dic-kanban>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="container-kanban" *ngIf="!loading">
+      <mat-toolbar class="header-card" style="background: rgb(228, 224, 6);">
+        <span>Definido</span>
+      </mat-toolbar>
+      <mat-card>
+        <mat-card-content class="card-kanban">
+          <div cdkDropList #definedList="cdkDropList" 
+              [cdkDropListData]="defined"
+              [cdkDropListConnectedTo]="[definingList, completedList]"
+              class="list-kanban"
+              [cdkDropListEnterPredicate]="otherPredicate"
+              (cdkDropListDropped)="drop($event)">
+            <app-dic-kanban class="box-kanban" *ngFor="let item of defined" cdkDrag [dic]="item" cdkDragData="defined" (cdkDragDropped)="setDicDropped(item)"></app-dic-kanban>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="container-kanban" *ngIf="!loading">
+      <mat-toolbar class="header-card" style="background: rgb(0, 164, 230);">
+        <span>Concluído</span>
+      </mat-toolbar>
+      <mat-card>
+        <mat-card-content class="card-kanban">
+          <div cdkDropList 
+            #completedList="cdkDropList" 
+            [cdkDropListData]="completed"
+            [cdkDropListConnectedTo]="[completedList]" 
+            [cdkDropListEnterPredicate]="evenPredicate"
+            class="list-kanban" 
+            (cdkDropListDropped)="drop($event)">
+            <app-dic-kanban class="box-kanban" *ngFor="let item of completed" cdkDrag [dic]="item" cdkDragData="completed" (cdkDragDropped)="setDicDropped(item)"></app-dic-kanban>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div>
+    <button class="button-add" mat-fab (click)="openNewDic()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>

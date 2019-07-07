@@ -1,3 +1,30 @@
-<p>
-  users works!
-</p>
+<div style="margin: 5% 15% 2% 20% ;">
+  <div class="header-users">
+      <mat-card-title>Usuários</mat-card-title>
+      <div style="height: 10vh; margin-right: 5%">
+          <mat-form-field style="width:20vw;" *ngIf="search">
+            <input #search matInput type="text" placeholder="Buscar por...">
+            <button mat-button *ngIf="search.value" matSuffix mat-icon-button aria-label="Clear" (click)="search.value=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <button mat-icon-button aria-label="pesquisar" (click)="openSearch()" style="position: absolute;">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+  </div>
+      <mat-divider style="margin-top:-3%"></mat-divider>
+</div>
+
+<div *ngIf="loading" style="display: flex; justify-content:  center; align-content: center; margin-top: 15%">
+  <mat-spinner></mat-spinner>
+</div> 
+<div *ngIf="!loading"  class="user-list">
+  <app-user-card *ngFor="let item of listUsers" [user]="item"></app-user-card>
+</div>
+
+<div>
+  <button style=" background-color: rgb(33, 189, 33) !important; position: fixed; right: 1%; bottom: 5%;" mat-fab (click)="openNewUser()"  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
