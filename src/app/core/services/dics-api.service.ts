@@ -25,12 +25,11 @@ export class DicsApiService {
   }
 
   update(dic) {
-    const dicUpload = this.returnBodyUpdate(dic);
-    return this.http.put(`${environment.apiUrl}DICs`, dicUpload, this.httpConf);
+    return this.http.put(`${environment.apiUrl}DICs`, dic, this.httpConf);
   }
 
   updateStatus(dic: DicsModel) {
-    const dicUpload = this.returnBodyUpdateStatus(dic);
+    const dicUpload = this.returnBodyUpdateStatus(dic, (dic.status.id + 1));
     return this.http.put(`${environment.apiUrl}DICs`, dicUpload, this.httpConf);
   }
 
@@ -61,25 +60,7 @@ export class DicsApiService {
     return body;
   }
 
-  private returnBodyUpdate(dic) {
-    const date = new Date();
-    const body = dic.idStatus === 3 ? {
-      idUser: dic.idUser,
-      idStatus: dic.idStatus,
-      idPeriod: dic.idPeriod,
-      description: dic.description,
-      finishedDate: date.toString()
-    } : {
-      idUser: dic.idUser,
-      idStatus: dic.idStatus,
-      idPeriod: dic.idPeriod,
-      description: dic.description,
-    };
-    return body;
-  }
-
-  private returnBodyUpdateStatus(dic: DicsModel) {
-    const status = (dic.status.id + 1);
+  private returnBodyUpdateStatus(dic: DicsModel, status: number) {
     const date = new Date();
     const body = status === 3 ? {
       id: dic.id,

@@ -1,5 +1,5 @@
 import { AuthService } from '../../core/authentication/auth.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -14,7 +14,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   authSubscription: Subscription;
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private ngZone: NgZone) { }
 
   ngOnInit() {
     this.formLogin = this.formBuilder.group({
@@ -27,9 +28,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.formLogin.valid) {
       this.authSubscription = this.authService.login(this.formLogin.value).subscribe(
         data => {
-          localStorage.setItem('currentUser', JSON.stringify(data));
-          this.authService.showMenuEmitter.emit(true);
-          this.router.navigate(['/kanban']);
+          sessionStorage.setItem('currentUser', JSON.stringify(data));
+          this.ngZone.run(() => {
+            this.router.navigate(['/kanban']);
+            this.authService.showMenuEmitter.emit(true);
+          });
         },
         error => {
           console.log( error );

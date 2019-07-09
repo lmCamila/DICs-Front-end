@@ -1,90 +1,89 @@
-<mat-card style="width:50vw; height: 70vh; padding: 0% !important">
-  <mat-card-header class="header-form">
-    <mat-card-title>{{title}} Usuário</mat-card-title>
-    <button mat-icon-button type="button" style="top:0%; right: 0%; position: absolute" (click)="close()">
+<mat-card style="width:100%; height: 100%; padding: 0% !important">
+    <mat-card-header class="header-form">
+        <mat-card-title>{{title}} Usuário</mat-card-title>
+        <button mat-icon-button type="button" style="top:0%; right: 0%; position: absolute" (click)="close()">
       <mat-icon>close</mat-icon>
     </button>
-  </mat-card-header>
-  <mat-divider></mat-divider>
-  <mat-card-content>
-    <form [formGroup]="formUser" class="form">
-      <mat-tab-group>
-        <mat-tab label="GERAL">
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+        <form [formGroup]="formUser" class="form">
+            <mat-tab-group>
+                <mat-tab label="GERAL">
 
-          <div style="display: flex; justify-content: center; margin-top: 1%;">
-            <img [src]="srcAvatar" class="avatar-form">
-          </div>
-          <!-- input de nome -->
-          <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%;">
-            <input matInput placeholder="Nome" value="" formControlName="name">
-          </mat-form-field>
-          <!-- input de email -->
-          <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%;">
-            <input matInput placeholder="Email" value="" formControlName="email">
-          </mat-form-field>
-          <!-- input de avatar -->
-          <div style="width: 100%; display: flex; flex-direction: row" >
-            <input id="fileInput" hidden type="file" (change)="fileChange($event.target.files)" >
-            <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%; width: 95%; " (click)="openInput()">
-              <input matInput disabled placeholder="Selecione um arquivo..." [value]="oruFile?.name">
-            </mat-form-field>
-            <button mat-mini-fab (click)="openInput()" >
+                    <div style="display: flex; justify-content: center; margin-top: 1%;">
+                        <img [src]="srcAvatar" class="avatar-form">
+                    </div>
+                    <!-- input de nome -->
+                    <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%;">
+                        <input matInput placeholder="Nome" value="" formControlName="name">
+                    </mat-form-field>
+                    <!-- input de email -->
+                    <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%;">
+                        <input matInput placeholder="Email" value="" formControlName="email">
+                    </mat-form-field>
+                    <!-- input de avatar -->
+                    <div style="width: 100%; display: flex; flex-direction: row">
+                        <input id="fileInput" hidden type="file" (change)="fileChange($event.target.files)">
+                        <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%; width: 95%; " (click)="openInput()">
+                            <input matInput disabled placeholder="Selecione um arquivo..." [value]="oruFile?.name">
+                        </mat-form-field>
+                        <button mat-mini-fab (click)="openInput()">
               <mat-icon>attach_file</mat-icon>
             </button>
-          </div>
-        </mat-tab>
-
-        <mat-tab label="DETALHES">
-          <!-- select departamento -->
-          <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%;">
-            <mat-label>Empreendimento:</mat-label>
-            <mat-select #department (valueChange)="filterByDepartment(department.value)">
-              <!-- *ngFor="let food of foods" -->
-              <mat-option *ngFor="let item of listDepartments"  [value]="item">
-                {{item.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <!-- select sim não leaderDepartment -->
-          <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%;">
-            <mat-label>Líder do empreendimento:</mat-label>
-            <mat-select>
-              <mat-option [value]="1">Sim</mat-option>
-              <mat-option [value]="1">Não</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <!-- input processo -->
-          <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%;">
-            <mat-label>Processo:</mat-label>
-            <mat-select>
-              <!--  *ngFor="let food of foods" -->
-              <mat-option *ngFor="let item of listProcessByDepartment" [value]="item">
-                {{item.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <!-- select sim não leaderProcess -->
-          <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%;">
-            <mat-label>Líder do processo:</mat-label>
-            <mat-select>
-              <mat-option [value]="1">Sim</mat-option>
-              <mat-option [value]="1">Não</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <!-- botões da dialog -->
-          <div style="display: flex; justify-content: flex-end; padding-top:17%">
-            <button mat-raised-button type="button" (click)="close()"
-              style="color: white; background-color:rgb(148, 146, 146); margin-right: 1%">
+                    </div>
+                </mat-tab>
+                <mat-progress-bar *ngIf="loading" mode="indeterminate" style="margin-top: 2%"></mat-progress-bar>
+                <mat-tab label="DETALHES">
+                    <!-- select departamento -->
+                    <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%;">
+                        <mat-label>Empreendimento:</mat-label>
+                        <mat-select #department (valueChange)="filterByDepartment(department.value)">
+                            <!-- *ngFor="let food of foods" -->
+                            <mat-option *ngFor="let item of listDepartments" [value]="item">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <!-- select sim não leaderDepartment -->
+                    <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%;">
+                        <mat-label>Líder do empreendimento:</mat-label>
+                        <mat-select>
+                            <mat-option [value]="1">Sim</mat-option>
+                            <mat-option [value]="1">Não</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <!-- input processo -->
+                    <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%;">
+                        <mat-label>Processo:</mat-label>
+                        <mat-select>
+                            <!--  *ngFor="let food of foods" -->
+                            <mat-option *ngFor="let item of listProcessByDepartment" [value]="item">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <!-- select sim não leaderProcess -->
+                    <mat-form-field style="display: flex; flex-direction: column;padding-top: 2%;">
+                        <mat-label>Líder do processo:</mat-label>
+                        <mat-select>
+                            <mat-option [value]="1">Sim</mat-option>
+                            <mat-option [value]="1">Não</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <!-- botões da dialog -->
+                    <div style="display: flex; justify-content: flex-end; padding-top:17%">
+                        <button mat-raised-button type="button" (click)="close()" style="color: white; background-color:rgb(148, 146, 146); margin-right: 1%">
               <mat-icon>close</mat-icon> CANCELAR
             </button>
 
-            <button type="submit" mat-raised-button color="primary">
+                        <button type="submit" mat-raised-button color="primary">
               <mat-icon>save</mat-icon> SALVAR
             </button>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-    </form>
-  </mat-card-content>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </form>
+    </mat-card-content>
 
 </mat-card>

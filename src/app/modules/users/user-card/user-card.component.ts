@@ -15,4 +15,7 @@ export class UserCardComponent implements OnInit {
   ngOnInit() {
   }
 
+  setAvatar() {
+    this.user.avatar = '/assets/default-user-icon.jpg';
+  }
 }

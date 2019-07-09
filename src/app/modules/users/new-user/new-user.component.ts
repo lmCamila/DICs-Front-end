@@ -1,3 +1,4 @@
+import { CloudinaryService } from './../service/cloudinary.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -20,11 +21,15 @@ export class NewUserComponent implements OnInit, OnDestroy {
   listProcess: Process[];
   listProcessByDepartment: Process[];
 
+  inscriptionUpload: Subscription;
+  avatarEvent: Subscription;
   processSubscription: Subscription;
   departmentSubscription: Subscription;
+  loading = false;
 
   constructor(private formBuilder: FormBuilder,
               private structureApiService: StructureApiService,
+              private cloudinaryService: CloudinaryService,
               public dialog: MatDialog,
               private dialogRef: MatDialogRef<NewUserComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -59,7 +64,7 @@ export class NewUserComponent implements OnInit, OnDestroy {
   fileChange(files: File[]) {
     if (files.length > 0) {
       this.oruFile = files[0];
-      console.log(this.oruFile);
+      this.onChangeAvatar(files[0]);
     }
   }
 
@@ -71,5 +76,14 @@ export class NewUserComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.processSubscription.unsubscribe();
     this.departmentSubscription.unsubscribe();
+  }
+
+  onChangeAvatar(file) {
+    this.loading = true;
+    this.cloudinaryService.upload(file);
+    this.avatarEvent = this.cloudinaryService.issueUrlResponse.subscribe(url => {
+      this.srcAvatar = url;
+      this.loading = false;
+    });
   }
 }
