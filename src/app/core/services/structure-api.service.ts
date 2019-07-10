@@ -46,4 +46,12 @@ export class StructureApiService {
   updateProcess(process) {
     return this.http.put(`${environment.apiUrl}Processes`, process, this.httpConf);
   }
+
+  deleteProcess(id) {
+    return this.http.delete(`${environment.apiUrl}Processes/${id}`);
+  }
+
+  deleteDepartment(id) {
+    return this.http.delete(`${environment.apiUrl}Departments/${id}`);
+  }
 }

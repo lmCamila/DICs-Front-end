@@ -23,15 +23,6 @@ export class StructureService {
     });
   }
   getDepartments(list: Process[]) {
-    // list.forEach(element => {
-    //   if (this.listDepartment.length === 0) {
-    //     this.listDepartment.push(element.department.id);
-    //   }
-    //   const dep = this.listDepartment.filter(d => d === element.department.id);
-    //   if (dep.length === 0) {
-    //     this.listDepartment.push(element.department.id);
-    //   }
-    // });
     this.structureApi.getDepartment().subscribe(
       data => {
         this.listDepartment = data;

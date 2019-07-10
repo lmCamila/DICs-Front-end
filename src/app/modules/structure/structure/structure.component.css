@@ -3,6 +3,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
+    margin-bottom: 3%;
 }
 
 .container-structure {
@@ -17,9 +18,9 @@
     margin: 3%;
 }
 
- .header-card{
+.header-card {
     background: rgb(0, 183, 255);
-    color:white;
+    color: white;
     padding: 2%;
     display: flex;
     flex-direction: row;
@@ -34,12 +35,10 @@
     bottom: 3%;
 }
 
-.sub-butons-add{
+.sub-butons-add {
     position: fixed;
     display: flex;
     flex-direction: column;
     right: 3.5%;
     bottom: 12%;
 }
-
-

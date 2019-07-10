@@ -1,37 +1,37 @@
 <div class="example-container">
-  <mat-toolbar color="primary" class="toolbar-menu" *ngIf="showMenu">
-    <div class="row-menu">
-      <button mat-icon-button (click)="snav.toggle()">
+    <mat-toolbar color="primary" class="toolbar-menu" *ngIf="showMenu">
+        <div class="row-menu">
+            <button mat-icon-button (click)="snav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <h1 class="example-app-name">Desafio Individual do Colaborador</h1>
-    </div>
-    <div class="row-menu">
+            <h1 class="example-app-name">Desafio Individual do Colaborador</h1>
+        </div>
+        <div class="row-menu">
 
-      <button mat-button [matMenuTriggerFor]="usersConfs" class="button-menu">
+            <button mat-button [matMenuTriggerFor]="usersConfs" class="button-menu">
         {{currentUser.user.name}}
         <img class="avatar-menu" [src]="currentUser.user.avatar" (error)="setAvatar()">
         <mat-icon>expand_more</mat-icon>
       </button>
-      <mat-menu #usersConfs="matMenu" xPosition="before">
-        <button mat-menu-item><mat-icon>lock</mat-icon>Alterar Senha</button>
-        <button mat-menu-item><mat-icon>edit</mat-icon> Editar Perfil</button>
-        <button mat-menu-item *ngIf="this.currentUser.user.isAdmin === 1" ><mat-icon>settings</mat-icon> Configurações</button>
-        <button mat-menu-item (click)="logout()" ><mat-icon>power_settings_new</mat-icon> Sair</button>
-      </mat-menu>
-    </div>
-  </mat-toolbar>
+            <mat-menu #usersConfs="matMenu" xPosition="before">
+                <button mat-menu-item><mat-icon>lock</mat-icon>Alterar Senha</button>
+                <button mat-menu-item><mat-icon>edit</mat-icon> Editar Perfil</button>
+                <button mat-menu-item *ngIf="this.currentUser.user.isAdmin === 1"><mat-icon>settings</mat-icon> Configurações</button>
+                <button mat-menu-item (click)="logout()"><mat-icon>power_settings_new</mat-icon> Sair</button>
+            </mat-menu>
+        </div>
+    </mat-toolbar>
 
-  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav mode="over" [fixedInViewport]="true" style="padding-top:56px;">
-      <mat-nav-list>
-        <a mat-list-item routerLinkActive="selected-item" [routerLinkActiveOptions]="{exact: true}" routerLink="">Dashboard</a>
-        <a mat-list-item routerLinkActive="selected-item" routerLink="/dics">Visão Geral D.I.C</a>
-        <a mat-list-item routerLinkActive="selected-item" routerLink="/kanban">Kanban D.I.C</a>
-        <a mat-list-item routerLinkActive="selected-item" routerLink="/users">Usuários</a>
-        <a mat-list-item routerLinkActive="selected-item" routerLink="/structure">Estrutura</a>
-        <a mat-list-item routerLinkActive="selected-item" routerLink="/relatories">Relatórios</a>
-      </mat-nav-list>
-    </mat-sidenav>
-  </mat-sidenav-container>
+    <mat-sidenav-container class="z-index: 1000;" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+        <mat-sidenav #snav mode="over" [fixedInViewport]="true" style="padding-top:56px;z-index: 1000;">
+            <mat-nav-list>
+                <a mat-list-item routerLinkActive="selected-item" [routerLinkActiveOptions]="{exact: true}" routerLink="">Dashboard</a>
+                <a mat-list-item routerLinkActive="selected-item" routerLink="/dics">Visão Geral D.I.C</a>
+                <a mat-list-item routerLinkActive="selected-item" routerLink="/kanban">Kanban D.I.C</a>
+                <a mat-list-item routerLinkActive="selected-item" routerLink="/users">Usuários</a>
+                <a mat-list-item routerLinkActive="selected-item" routerLink="/structure">Estrutura</a>
+                <a mat-list-item routerLinkActive="selected-item" routerLink="/relatories">Relatórios</a>
+            </mat-nav-list>
+        </mat-sidenav>
+    </mat-sidenav-container>
 </div>

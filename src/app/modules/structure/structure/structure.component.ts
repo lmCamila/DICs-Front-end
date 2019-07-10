@@ -1,3 +1,6 @@
+import { StructureApiService } from './../../../core/services/structure-api.service';
+import { ModalService } from './../../../core/services/modal.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from './../../../core/authentication/auth.service';
 import { StructureService } from './../service/structure.service';
@@ -6,6 +9,7 @@ import { NewProcessComponent } from '../new-process/new-process.component';
 import { NewDepartmentComponent } from '../new-department/new-department.component';
 import { Department } from 'src/app/shared/models/department';
 import { Subscription } from 'rxjs';
+import { ModalComponent } from 'src/app/core/modal/modal.component';
 
 @Component({
   selector: 'app-structure',
@@ -21,9 +25,13 @@ export class StructureComponent implements OnInit, OnDestroy {
   structureSubscription: Subscription;
   departmentSubscription: Subscription;
   showButtonsAdd = false;
+  dialogSubscription: Subscription;
   constructor(private authService: AuthService,
               private structureService: StructureService,
-              public dialog: MatDialog) {
+              private structureApiService: StructureApiService,
+              public dialog: MatDialog,
+              private modalService: ModalService,
+              private snack: MatSnackBar) {
       this.authService.showMenuEmitter.emit(true);
       this.structureSubscription = this.structureService.listStructureEmitter.subscribe(data => {
         this.listStruct = data;
@@ -86,6 +94,51 @@ export class StructureComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  deleteProcess(id) {
+    this.dialog.open(ModalComponent, {
+      data: { message: `Deseja realmente excluir processo ?`,
+              cancel: true}
+    });
+    this.dialogSubscription = this.modalService.eventMessageDialog.subscribe(
+      confirm => {
+       this.structureApiService.deleteProcess(id).subscribe(
+          success => {
+            this.snack.open('Processo excluído com sucesso.', null, {
+            duration: 2000,
+          });
+            this.structureService.getAll();
+        },
+        error => {
+          this.snack.open('Processo não pode ser excluído.', null, {
+            duration: 2000,
+          });
+        });
+      });
+  }
+
+  deleteDepartment(id) {
+    this.dialog.open(ModalComponent, {
+      data: { message: `Deseja realmente excluir empreendimento ?`,
+              cancel: true}
+    });
+    this.dialogSubscription = this.modalService.eventMessageDialog.subscribe(
+      confirm => {
+       this.structureApiService.deleteDepartment(id).subscribe(
+          success => {
+            this.snack.open('Empreendimento excluído com sucesso.', null, {
+            duration: 2000,
+          });
+            this.structureService.getAll();
+        },
+        error => {
+          this.snack.open('Empreendimento não pode ser excluído.', null, {
+            duration: 2000,
+          });
+        });
+      });
+  }
+
   ngOnDestroy() {
     this.departmentSubscription.unsubscribe();
     this.structureSubscription.unsubscribe();

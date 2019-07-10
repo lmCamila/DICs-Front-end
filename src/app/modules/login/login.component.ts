@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../core/authentication/auth.service';
 import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
               private router: Router,
-              private ngZone: NgZone) { }
+              private ngZone: NgZone,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.formLogin = this.formBuilder.group({
@@ -35,7 +37,9 @@ export class LoginComponent implements OnInit, OnDestroy {
           });
         },
         error => {
-          console.log( error );
+          this.snackBar.open('Login ou senha incorretos!', 'ERRO', {
+            duration: 2000
+          });
         }
       );
     }

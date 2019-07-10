@@ -1,60 +1,66 @@
 <div class="container-structure">
-  <div class="header-structure">
-    <mat-card-title>Estrutura</mat-card-title>
-    <div style="height: 10vh; margin-right: 5%">
-      <mat-form-field style="width:20vw;" *ngIf="search">
-        <input #search matInput type="text" placeholder="Buscar por...">
-        <button mat-button *ngIf="search.value" matSuffix mat-icon-button aria-label="Clear" (click)="search.value=''">
+    <div class="header-structure">
+        <mat-card-title>Estrutura</mat-card-title>
+        <!-- <div style="height: 10vh; margin-right: 5%">
+            <mat-form-field style="width:20vw; margin-top: -4%" *ngIf="search">
+                <input #search matInput type="text" placeholder="Buscar por...">
+                <button mat-button *ngIf="search.value" matSuffix mat-icon-button aria-label="Clear" (click)="search.value=''">
           <mat-icon>close</mat-icon>
         </button>
-      </mat-form-field>
-      <button mat-icon-button aria-label="pesquisar" (click)="openSearch()" style="position: absolute;">
+            </mat-form-field>
+            <button mat-icon-button aria-label="pesquisar" (click)="openSearch()" style="position: absolute;">
         <mat-icon>search</mat-icon>
       </button>
+        </div> -->
     </div>
-  </div>
-  <mat-divider style="margin-top: -3%;"></mat-divider>
-  <div *ngFor="let item of listDepartment; let i = index">
+    <mat-divider style="margin-top: -3%;"></mat-divider>
+    <div *ngFor="let item of listDepartment; let i = index">
 
-    <mat-card class="panel">
-      <mat-card-header class="header-card">
-          <mat-card-title>{{item.name}}</mat-card-title>
-          <button *ngIf="listStruct[i].length === 0" mat-icon-button (click)="openEditDepartment(item)">
-              <mat-icon>edit</mat-icon>
-          </button>
-      </mat-card-header>
-      <mat-card-content *ngIf="listStruct[i].length != 0" >
-        <mat-list>
-          <mat-list-item *ngFor="let process of listStruct[i]">
-            <h4 mat-line>{{process.name}}</h4>
-            <button mat-icon-button [matMenuTriggerFor]="processMenu">
+        <mat-card class="panel">
+            <mat-card-header class="header-card">
+                <mat-card-title>{{item.name}}</mat-card-title>
+                <div *ngIf="listStruct[i].length === 0">
+                    <button mat-icon-button (click)="openEditDepartment(item)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                    <button mat-icon-button (click)="deleteDepartment(item.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+                </div>
+
+            </mat-card-header>
+            <mat-card-content *ngIf="listStruct[i].length != 0">
+                <mat-list>
+                    <mat-list-item *ngFor="let process of listStruct[i]">
+                        <h4 mat-line>{{process.name}}</h4>
+                        <button mat-icon-button [matMenuTriggerFor]="processMenu">
               <mat-icon>more_vert</mat-icon>
             </button>
-            <mat-menu #processMenu="matMenu" xPosition="after">
-              <button mat-menu-item (click)="openEditProcess(process)" >Editar</button>
-              <button mat-menu-item>Excluir</button>
-            </mat-menu>
-          </mat-list-item>
-        </mat-list>
-      </mat-card-content>
-      <mat-divider></mat-divider>
-      <mat-card-actions *ngIf="listStruct[i].length != 0" style="display: flex; justify-content: flex-end; height: 8vh;margin:2% 2% 5% 2%">
-        <button mat-icon-button (click)="openEditDepartment(item)" >
+                        <mat-menu #processMenu="matMenu" xPosition="after">
+                            <button mat-menu-item (click)="openEditProcess(process)">Editar</button>
+                            <button mat-menu-item (click)="deleteProcess(process.id)">Excluir</button>
+                        </mat-menu>
+                    </mat-list-item>
+                </mat-list>
+            </mat-card-content>
+            <mat-divider></mat-divider>
+            <mat-card-actions *ngIf="listStruct[i].length != 0" style="display: flex; justify-content: flex-end; height: 8vh;margin:2% 2% 5% 2%">
+                <button mat-icon-button (click)="openEditDepartment(item)">
           <mat-icon>edit</mat-icon>
         </button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
+            </mat-card-actions>
+        </mat-card>
+    </div>
 </div>
 <div>
-  <div *ngIf="showButtonsAdd" class="sub-butons-add">
-    <button mat-mini-fab matTooltip="Empreendimento" matTooltipPosition="before" color="primary"  id="department-button" style="margin-bottom: 12px;" (click)="openNewDepartment()" >
+    <div *ngIf="showButtonsAdd" class="sub-butons-add">
+        <button mat-mini-fab matTooltip="Empreendimento" matTooltipPosition="before" color="primary" id="department-button" style="margin-bottom: 12px;" (click)="openNewDepartment()">
     <img src="/assets/department.svg" style="margin-top: -7px; width: 28px; height: 28px;"/></button>
-    <button mat-mini-fab matTooltip="Processo" matTooltipPosition="before" color="primary" id="process-butoon" style="margin-bottom: 12px;" (click)="openNewProcess()">
+        <button mat-mini-fab matTooltip="Processo" matTooltipPosition="before" color="primary" id="process-butoon" style="margin-bottom: 12px;" (click)="openNewProcess()">
         <img src="/assets/process.svg" style="margin-top: -7px; width: 28px; height: 28px;"/>
     </button>
-  </div>
-  <button class="button-add" mat-fab (click)="showButtons()">
+    </div>
+    <button class="button-add" mat-fab (click)="showButtons()">
     <mat-icon>add</mat-icon>
   </button>
 </div>

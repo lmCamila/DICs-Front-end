@@ -4,23 +4,33 @@
     margin: 15px;
 }
 
+.foto {
+    display: flex;
+    float: right;
+    position: relative;
+    margin-top: 1%;
+    margin-right: 5%;
+    z-index: 3;
+}
+
 .name {
     background: rgb(111, 188, 250);
     border-left: 1px solid rgb(111, 188, 250);
     border-radius: 30%;
     font-size: 16px;
     display: inline-block;
-    padding: 0 13%;
-    height: 25%;
-    width: 90%;
+    padding: 0 12%;
+    height: 30%;
+    width: 100%;
     font-size: 16px;
-    line-height: 24px;
+    line-height: 25px;
     border-radius: 25px;
-    margin: 3% 0% 0% -18%
+    margin: -13%;
 }
 
 .infos {
     display: flex;
+    width: 70%;
     float: right;
     position: relative;
     flex-direction: column;
@@ -29,15 +39,14 @@
 }
 
 .content {
-    margin-top: 0%;
+    margin-top: 16%;
 }
 
 .content-challenge {
     border: 1px solid black;
     border-radius: 10px;
-    padding: 2%;
+    padding: 5%;
     height: 25%;
-    word-wrap: break-word;
 }
 
 .section-row {
@@ -49,5 +58,4 @@
     height: 60px;
     border-radius: 50%;
     margin-left: 3%;
-    z-index: 3;
 }
