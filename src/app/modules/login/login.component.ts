@@ -1,9 +1,10 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../core/authentication/auth.service';
-import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-login',
@@ -30,10 +31,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.formLogin.valid) {
       this.authSubscription = this.authService.login(this.formLogin.value).subscribe(
         data => {
-          sessionStorage.setItem('currentUser', JSON.stringify(data));
+          sessionStorage.setItem('currentUser', JSON.stringify({
+            id: String(data.user.id),
+            token: String(data.token)
+          }));
           this.ngZone.run(() => {
             this.router.navigate(['/kanban']);
             this.authService.showMenuEmitter.emit(true);
+            // this.authService.userEmitter.emit(data.user);
           });
         },
         error => {

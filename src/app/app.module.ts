@@ -18,6 +18,8 @@ import { MenuComponent } from './core/menu/menu.component';
 import { AppRoutingModule } from './app.routing.module';
 import { registerLocaleData } from '@angular/common';
 import { NewDicComponent } from './core/new-dic/new-dic.component';
+import { DicHistoryComponent } from './modules/dic-history/dic-history.component';
+import { UserHistoryComponent } from './modules/user-history/user-history.component';
 
 registerLocaleData(ptBr);
 
@@ -28,7 +30,9 @@ registerLocaleData(ptBr);
     DashboardComponent,
     ModalComponent,
     MenuComponent,
-    NewDicComponent
+    NewDicComponent,
+    DicHistoryComponent,
+    UserHistoryComponent
   ],
   imports: [
     BrowserModule,

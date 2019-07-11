@@ -8,7 +8,7 @@ const appRoutes: Routes = [
     {path: 'users', loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule)},
     {path: 'dics', loadChildren: () => import('./modules/dics/dics.module').then(m => m.DicsModule)},
     {path: 'kanban', loadChildren: () => import('./modules/kanban/kanban.module').then(m => m.KanbanModule)},
-    {path: '', component: DashboardComponent, canActivate: [AuthGuard]},
+    // {path: '', component: DashboardComponent, canActivate: [AuthGuard]},
     {path: 'login', component: LoginComponent},
     {path: '**', redirectTo: ''}
 ];
